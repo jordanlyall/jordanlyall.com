@@ -48,6 +48,14 @@ Serves two audiences: humans (clean reading experience) and AI agents (structure
 - Warm neutral palette (#fafaf9 / #18181b light, #09090b / #fafaf9 dark)
 - Clean, refined, intentional. CPO/builder/investor aesthetic.
 
+## Writing Voice
+- **MUST READ** `docs/voice-guide.md` before drafting or editing any content for the site
+- Voice: Direct. Earned. Builder. Not a thought leader performing insight.
+- tl;dr sections up front on longer pieces. Specific details, not abstractions.
+- Never use AI-tell words (delve, robust, leverage, landscape, etc.) -- see full list in voice guide
+- Jordan brings the thinking (specific observations, earned insights). Claude brings structure.
+- If a note could have been written by anyone who read about the topic, it's not ready.
+
 ## Key Principles
 - Every post needs "Why this matters" summary
 - Stable URLs -- never change slugs
@@ -73,7 +81,13 @@ Serves two audiences: humans (clean reading experience) and AI agents (structure
 - Domain DNS at GoDaddy (A record -> 76.76.21.21)
 
 ## Upcoming Work
-- Intake -> Slack notification (plan at ~/.claude/plans/gentle-munching-stallman.md)
-- Groundskeeper site audit skill (same plan file)
-- Design polish, content seeding, OG images
+- Groundskeeper site audit skill (plan at ~/.claude/plans/gentle-munching-stallman.md)
+- Content seeding -- 8-12 more notes for density (target: 15 total)
+- Design polish (typography, spacing, dark mode refinement)
 - Full roadmap in Obsidian: 1-Projects/Current/sovereign-node-jordanlyall.md
+
+## Recently Shipped
+- Dynamic OG images via @vercel/og at /api/og (Feb 16)
+- Slack notifications on intake proposals to #crew-main (Feb 16)
+- Mobile layout fix + mobile footer (Feb 16)
+- Vercel env note: use `process.env` for secrets in serverless, NOT `import.meta.env`
