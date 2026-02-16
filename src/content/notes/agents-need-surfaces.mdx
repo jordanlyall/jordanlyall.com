@@ -1,0 +1,28 @@
+---
+title: "Agents Need Surfaces"
+summary: "AI agents are getting better at acting on our behalf, but they have nowhere to land. The web isn't built for them yet."
+publishDate: 2026-02-14
+topic: ai-agents
+related:
+  - /topics/ai-agents/
+  - /notes/designing-for-invariants/
+draft: false
+---
+
+Most of the agent conversation is about capabilities -- what can they do, how autonomous should they be, which model runs underneath.
+
+Less discussed: **where do agents go?**
+
+Right now, the answer is mostly APIs with auth tokens, or screen-scraping human interfaces. Neither is great. APIs are gated and siloed. Screen-scraping is fragile and adversarial.
+
+## What's missing
+
+A middle layer. Something like:
+
+- **Structured manifests** that tell agents what a person or site offers
+- **Intake endpoints** that accept proposals in a machine-readable format
+- **Discovery files** that let agents find capabilities without crawling
+
+This isn't a new protocol. It's just JSON files at well-known paths, RSS feeds with structured metadata, and forms that accept `application/json` alongside HTML.
+
+The primitives already exist. We just haven't assembled them for agents yet.
