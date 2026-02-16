@@ -30,6 +30,8 @@
 
   --radius: 8px;
   --radius-sm: 4px;
+
+  --color-accent: #8119b7;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -86,6 +88,21 @@ html {
   margin-bottom: var(--space-10);
 }
 
+.sidebar-avatar {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-bottom: var(--space-3);
+}
+
+.sidebar-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  border-radius: var(--radius-sm);
+}
+
 .sidebar-name {
   font-size: 0.95rem;
   font-weight: 600;
@@ -122,15 +139,42 @@ html {
   transition: color 0.15s, background 0.15s;
 }
 
-.sidebar-nav a:hover,
+.sidebar-nav a:hover {
+  color: var(--color-accent);
+  background: var(--color-bg-secondary);
+}
+
 .sidebar-nav a[aria-current="page"] {
   color: var(--color-text);
   background: var(--color-bg-secondary);
+  border-left: 2px solid var(--color-accent);
 }
 
 .sidebar-footer {
   margin-top: auto;
   padding-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.sidebar-social {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.sidebar-social a {
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+  transition: color 0.15s;
+  display: flex;
+}
+
+.sidebar-social a:hover {
+  color: var(--color-accent);
+}
+
+.sidebar-meta {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
@@ -171,6 +215,18 @@ html {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.mobile-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+}
+
+.mobile-avatar {
+  image-rendering: pixelated;
+  border-radius: var(--radius-sm);
 }
 
 .mobile-name {
@@ -223,6 +279,10 @@ a {
 
 a:hover {
   text-decoration-color: var(--color-text-secondary);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 30%, transparent);
 }
 
 h1 {
@@ -393,7 +453,7 @@ img {
   font-family: var(--font-mono);
   font-weight: 500;
   color: var(--color-text-secondary);
-  background: var(--color-bg-secondary);
+  background: color-mix(in srgb, var(--color-accent) 10%, var(--color-bg-secondary));
   padding: 0.2em 0.6em;
   border-radius: var(--radius-sm);
   text-decoration: none;
