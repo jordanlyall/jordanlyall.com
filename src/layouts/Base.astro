@@ -15,6 +15,10 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const pageTitle = title === 'Home' ? 'Jordan Lyall' : `${title} — Jordan Lyall`;
+const ogImageUrl = ogImage || new URL(
+  `/api/og?title=${encodeURIComponent(pageTitle)}&subtitle=${encodeURIComponent(description)}`,
+  Astro.site
+).toString();
 
 const navItems = [
   { href: '/', label: 'Home' },
@@ -41,11 +45,12 @@ const currentPath = Astro.url.pathname;
   <meta property="og:title" content={pageTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonicalURL} />
-  {ogImage && <meta property="og:image" content={ogImage} />}
+  <meta property="og:image" content={ogImageUrl} />
 
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={pageTitle} />
   <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageUrl} />
 
   <link rel="alternate" type="application/rss+xml" title="All Writing" href="/writing/rss.xml" />
   <link rel="alternate" type="application/rss+xml" title="Notes" href="/notes/rss.xml" />

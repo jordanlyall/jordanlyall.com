@@ -30,7 +30,7 @@ const formatDate = (date: Date) => date.toLocaleDateString('en-US', {
 });
 ---
 
-<Base title={title} description={summary}>
+<Base title={title} description={summary} ogImage={new URL(`/api/og?title=${encodeURIComponent(title)}&subtitle=${encodeURIComponent(summary)}`, Astro.site).toString()}>
   <article class="h-entry">
     <header class="post-header">
       <div class="post-meta-line">
