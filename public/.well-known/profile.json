@@ -1,0 +1,17 @@
+{
+  "version": "0.1",
+  "name": "Jordan Lyall",
+  "canonical_site": "https://jordanlyall.com",
+  "handles": [
+    { "service": "x", "handle": "@jordanlyall", "url": "https://x.com/jordanlyall" },
+    { "service": "github", "handle": "@jordanlyall", "url": "https://github.com/jordanlyall" }
+  ],
+  "topics": ["generative-art", "ai-agents", "sovereign-systems"],
+  "preferences": {
+    "communication": ["structured-form", "x-dm"],
+    "format": ["short context first", "links to references", "clear next steps"]
+  },
+  "constraints": {
+    "do_not": ["unsolicited sales", "requests without context", "high-pressure urgency"]
+  }
+}

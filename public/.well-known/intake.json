@@ -1,0 +1,17 @@
+{
+  "version": "0.1",
+  "proposal_schema": {
+    "required": ["who", "why", "what", "timing"],
+    "fields": [
+      { "id": "who", "type": "string", "hint": "Who are you and what's your context?" },
+      { "id": "why", "type": "string", "hint": "Why is this relevant?" },
+      { "id": "what", "type": "string", "hint": "What are you proposing or requesting?" },
+      { "id": "timing", "type": "string", "hint": "Timeline or constraints" },
+      { "id": "email", "type": "string", "hint": "Your email address" },
+      { "id": "links", "type": "array", "items": "url", "hint": "Relevant URLs" }
+    ]
+  },
+  "endpoint": "https://jordanlyall.com/api/intake/proposal",
+  "method": "POST",
+  "content_type": "application/json"
+}

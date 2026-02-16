@@ -1,0 +1,124 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Submit a proposal" description="Send a structured proposal or introduction to Jordan Lyall.">
+  <div class="page-header">
+    <h1>Submit a proposal</h1>
+    <p>Structured proposals help me respond faster. Fill in what's relevant and I'll get back to you.</p>
+  </div>
+
+  <form id="proposal-form" class="proposal-form">
+    <div class="form-group">
+      <label class="form-label" for="who">
+        Who are you? <span class="form-hint">— your name, role, and context</span>
+      </label>
+      <textarea id="who" name="who" class="form-textarea" rows="2" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="why">
+        Why reach out? <span class="form-hint">— why this is relevant to both of us</span>
+      </label>
+      <textarea id="why" name="why" class="form-textarea" rows="3" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="what">
+        What are you proposing? <span class="form-hint">— the specific ask or idea</span>
+      </label>
+      <textarea id="what" name="what" class="form-textarea" rows="3" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="timing">
+        Timeline <span class="form-hint">— any deadlines or constraints</span>
+      </label>
+      <input id="timing" name="timing" class="form-input" type="text" required />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="email">
+        Email <span class="form-hint">— optional, for a reply</span>
+      </label>
+      <input id="email" name="email" class="form-input" type="email" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="links">
+        Links <span class="form-hint">— optional, comma-separated URLs</span>
+      </label>
+      <input id="links" name="links" class="form-input" type="text" placeholder="https://..." />
+    </div>
+
+    <button type="submit" class="btn">Submit proposal</button>
+    <p id="form-status" class="form-status"></p>
+  </form>
+</Base>
+
+<style>
+  .proposal-form {
+    max-width: 560px;
+  }
+
+  .form-status {
+    margin-top: var(--space-3);
+    font-size: 0.875rem;
+  }
+
+  .form-status.success {
+    color: #16a34a;
+  }
+
+  .form-status.error {
+    color: #dc2626;
+  }
+</style>
+
+<script>
+  const form = document.getElementById('proposal-form') as HTMLFormElement;
+  const status = document.getElementById('form-status') as HTMLParagraphElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.textContent = '';
+    status.className = 'form-status';
+
+    const data: Record<string, string | string[]> = {
+      who: (form.elements.namedItem('who') as HTMLTextAreaElement).value,
+      why: (form.elements.namedItem('why') as HTMLTextAreaElement).value,
+      what: (form.elements.namedItem('what') as HTMLTextAreaElement).value,
+      timing: (form.elements.namedItem('timing') as HTMLInputElement).value,
+    };
+
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+    if (email) data.email = email;
+
+    const linksRaw = (form.elements.namedItem('links') as HTMLInputElement).value;
+    if (linksRaw) {
+      data.links = linksRaw.split(',').map(s => s.trim()).filter(Boolean);
+    }
+
+    try {
+      const res = await fetch('/api/intake/proposal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        const result = await res.json();
+        status.textContent = `Received. Reference: ${result.id}`;
+        status.className = 'form-status success';
+        form.reset();
+      } else {
+        const err = await res.json();
+        status.textContent = err.error || 'Something went wrong.';
+        status.className = 'form-status error';
+      }
+    } catch {
+      status.textContent = 'Network error. Try again.';
+      status.className = 'form-status error';
+    }
+  });
+</script>

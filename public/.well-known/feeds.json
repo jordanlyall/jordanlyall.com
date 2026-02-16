@@ -1,0 +1,9 @@
+{
+  "version": "0.1",
+  "site": "https://jordanlyall.com",
+  "feeds": [
+    { "type": "rss", "title": "Notes", "url": "https://jordanlyall.com/notes/rss.xml" },
+    { "type": "rss", "title": "Essays", "url": "https://jordanlyall.com/essays/rss.xml" },
+    { "type": "rss", "title": "All Writing", "url": "https://jordanlyall.com/writing/rss.xml" }
+  ]
+}

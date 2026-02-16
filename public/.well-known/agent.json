@@ -1,0 +1,28 @@
+{
+  "version": "0.1",
+  "owner": "https://jordanlyall.com",
+  "capabilities": [
+    {
+      "id": "read.public",
+      "description": "Read public writing, topic hubs, and project pages.",
+      "auth": "none"
+    },
+    {
+      "id": "intake.proposal",
+      "description": "Submit a structured proposal or introduction.",
+      "auth": "none",
+      "endpoint": "https://jordanlyall.com/api/intake/proposal"
+    }
+  ],
+  "guardrails": {
+    "rate_limits": { "anonymous_per_hour": 10 },
+    "privacy": "No personal or sensitive data is provided via agent endpoints.",
+    "escalation": "Any action beyond intake requires human approval."
+  },
+  "discovery": {
+    "feeds": "https://jordanlyall.com/.well-known/feeds.json",
+    "profile": "https://jordanlyall.com/.well-known/profile.json",
+    "now": "https://jordanlyall.com/.well-known/now.json",
+    "intake": "https://jordanlyall.com/.well-known/intake.json"
+  }
+}

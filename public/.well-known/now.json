@@ -1,0 +1,10 @@
+{
+  "version": "0.1",
+  "updated": "2026-02-15",
+  "focus": [
+    "Exploring agent-native interfaces and personal publishing infrastructure",
+    "Building small experiments at the intersection of AI and onchain systems"
+  ],
+  "open_to": ["collaboration proposals", "talks and panels", "side-project partnerships"],
+  "not_open_to": ["random pitches without fit", "urgent asks without lead time"]
+}
