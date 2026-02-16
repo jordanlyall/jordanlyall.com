@@ -13,7 +13,7 @@ function generateId(): string {
 }
 
 async function notifySlack(proposal: Record<string, unknown>): Promise<void> {
-  const token = import.meta.env.SLACK_BOT_TOKEN;
+  const token = process.env.SLACK_BOT_TOKEN;
   if (!token) {
     console.warn('[intake/proposal] SLACK_BOT_TOKEN not set, skipping notification');
     return;
@@ -157,8 +157,8 @@ export const POST: APIRoute = async ({ request }) => {
   // Log for now -- replace with storage later (KV, email forward, etc.)
   console.log('[intake/proposal]', JSON.stringify(proposal));
 
-  // Notify Slack (fire-and-forget, non-blocking)
-  notifySlack(proposal);
+  // Notify Slack (awaited so Vercel doesn't terminate the function early)
+  await notifySlack(proposal);
 
   return new Response(JSON.stringify({ id, status: 'received' }), {
     status: 200,
