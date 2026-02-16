@@ -1,0 +1,73 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { topics, type TopicSlug } from '../../data/topics';
+
+const topicLabels: Record<string, string> = {
+  'generative-art': 'Generative Art & Digital Culture',
+  'ai-agents': 'AI Agents & Infrastructure',
+  'sovereign-systems': 'Sovereign Systems',
+};
+
+export function getStaticPaths() {
+  return Object.keys(topics).map((topic) => ({
+    params: { topic },
+  }));
+}
+
+const { topic } = Astro.params;
+const topicData = topics[topic as TopicSlug];
+
+const notes = (await getCollection('notes', ({ data }) => !data.draft))
+  .filter((n) => n.data.topic === topic || n.data.secondaryTopic === topic)
+  .map((n) => ({ ...n, type: 'note' as const }));
+
+const essays = (await getCollection('essays', ({ data }) => !data.draft))
+  .filter((e) => e.data.topic === topic || e.data.secondaryTopic === topic)
+  .map((e) => ({ ...e, type: 'essay' as const }));
+
+const allPosts = [...notes, ...essays]
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+---
+
+<Base title={topicData.name} description={topicData.thesis}>
+  <div class="page-header">
+    <h1>{topicData.name}</h1>
+    <p class="topic-thesis">{topicData.thesis}</p>
+  </div>
+
+  {allPosts.length > 0 ? (
+    <div class="section">
+      <p class="section-title">Posts</p>
+      <ul class="card-list">
+        {allPosts.map((post) => (
+          <li class="card-list-item">
+            <a href={`/${post.type === 'note' ? 'notes' : 'essays'}/${post.id}/`}>
+              {post.data.title}
+            </a>
+            <div class="card-meta">
+              <span>{post.data.publishDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+              <span>{post.type}</span>
+            </div>
+            <p class="card-summary">{post.data.summary}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ) : (
+    <div class="empty-state">
+      <p>No posts on this topic yet.</p>
+    </div>
+  )}
+
+  {topicData.relatedTopics.length > 0 && (
+    <div class="section">
+      <p class="section-title">Related topics</p>
+      <div class="topic-related">
+        {topicData.relatedTopics.map((slug) => (
+          <a href={`/topics/${slug}/`} class="tag">{topicLabels[slug] || slug}</a>
+        ))}
+      </div>
+    </div>
+  )}
+</Base>

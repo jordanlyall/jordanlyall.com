@@ -1,0 +1,98 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  summary: string;
+  publishDate: Date;
+  updatedDate?: Date;
+  topic: string;
+  secondaryTopic?: string;
+  related?: string[];
+  type: 'note' | 'essay';
+  syndicatedOn?: { platform: string; url: string }[];
+  references?: { title: string; url: string }[];
+}
+
+const {
+  title, summary, publishDate, updatedDate, topic, secondaryTopic,
+  related = [], type, syndicatedOn = [], references = [],
+} = Astro.props;
+
+const topicLabels: Record<string, string> = {
+  'generative-art': 'Generative Art & Digital Culture',
+  'ai-agents': 'AI Agents & Infrastructure',
+  'sovereign-systems': 'Sovereign Systems',
+};
+
+const formatDate = (date: Date) => date.toLocaleDateString('en-US', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+---
+
+<Base title={title} description={summary}>
+  <article class="h-entry">
+    <header class="post-header">
+      <div class="post-meta-line">
+        <time class="dt-published" datetime={publishDate.toISOString()}>
+          {formatDate(publishDate)}
+        </time>
+        {updatedDate && (
+          <span>
+            Updated <time class="dt-updated" datetime={updatedDate.toISOString()}>
+              {formatDate(updatedDate)}
+            </time>
+          </span>
+        )}
+        <span>{type}</span>
+      </div>
+      <h1 class="p-name">{title}</h1>
+      <div class="post-summary">
+        <p class="p-summary" style="margin-bottom: 0;"><strong>Why this matters:</strong> {summary}</p>
+      </div>
+    </header>
+
+    <div class="post-content e-content">
+      <slot />
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+        <a href={`/topics/${topic}/`} class="tag">{topicLabels[topic] || topic}</a>
+        {secondaryTopic && (
+          <a href={`/topics/${secondaryTopic}/`} class="tag">{topicLabels[secondaryTopic] || secondaryTopic}</a>
+        )}
+      </div>
+
+      {references.length > 0 && (
+        <div class="post-related">
+          <p class="post-related-title">References</p>
+          <ul class="post-related-list">
+            {references.map((ref) => (
+              <li><a href={ref.url}>{ref.title}</a></li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {related.length > 0 && (
+        <div class="post-related">
+          <p class="post-related-title">Related</p>
+          <ul class="post-related-list">
+            {related.map((link) => (
+              <li><a href={link}>{link}</a></li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {syndicatedOn.length > 0 && (
+        <p class="post-syndication">
+          Also posted on: {syndicatedOn.map((s, i) => (
+            <><a href={s.url}>{s.platform}</a>{i < syndicatedOn.length - 1 && ', '}</>
+          ))}
+        </p>
+      )}
+    </footer>
+  </article>
+</Base>

@@ -1,17 +1,58 @@
 ---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { topics } from '../data/topics';
 
+const notes = (await getCollection('notes', ({ data }) => !data.draft))
+  .map((n) => ({ ...n, type: 'note' as const }));
+const essays = (await getCollection('essays', ({ data }) => !data.draft))
+  .map((e) => ({ ...e, type: 'essay' as const }));
+
+const latest = [...notes, ...essays]
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 5);
+
+const topicLabels: Record<string, string> = {
+  'generative-art': 'Generative Art & Digital Culture',
+  'ai-agents': 'AI Agents & Infrastructure',
+  'sovereign-systems': 'Sovereign Systems',
+};
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base title="Home">
+  <div class="section">
+    <h1>Jordan Lyall</h1>
+    <p style="color: var(--color-text-secondary); font-size: 1.05rem;">
+      Building and thinking about:
+    </p>
+    <ul style="margin-top: var(--space-3); padding-left: var(--space-6);">
+      {Object.entries(topics).map(([slug, topic]) => (
+        <li><a href={`/topics/${slug}/`} class="inline-link">{topic.name}</a></li>
+      ))}
+    </ul>
+  </div>
+
+  {latest.length > 0 && (
+    <div class="section">
+      <p class="section-title">Latest</p>
+      <ul class="card-list">
+        {latest.map((post) => (
+          <li class="card-list-item">
+            <a href={`/${post.type === 'note' ? 'notes' : 'essays'}/${post.id}/`}>
+              {post.data.title}
+            </a>
+            <div class="card-meta">
+              <span>{post.data.publishDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+              <span>{post.type}</span>
+              <a href={`/topics/${post.data.topic}/`} class="tag">{topicLabels[post.data.topic] || post.data.topic}</a>
+            </div>
+            <p class="card-summary">{post.data.summary}</p>
+          </li>
+        ))}
+      </ul>
+      <p style="margin-top: var(--space-4);">
+        <a href="/writing/" class="inline-link">All writing &rarr;</a>
+      </p>
+    </div>
+  )}
+</Base>

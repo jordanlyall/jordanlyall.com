@@ -1,0 +1,116 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = 'Building and thinking about generative systems, AI agents, and sovereign infrastructure.',
+  ogImage,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const pageTitle = title === 'Home' ? 'Jordan Lyall' : `${title} — Jordan Lyall`;
+
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/writing/', label: 'Writing' },
+  { href: '/now/', label: 'Now' },
+  { href: '/work-with-me/', label: 'Work with me' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalURL} />
+  {ogImage && <meta property="og:image" content={ogImage} />}
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={description} />
+
+  <link rel="alternate" type="application/rss+xml" title="All Writing" href="/writing/rss.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Notes" href="/notes/rss.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Essays" href="/essays/rss.xml" />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://jordanlyall.com/#me",
+    "name": "Jordan Lyall",
+    "url": "https://jordanlyall.com/",
+    "sameAs": [
+      "https://x.com/jordanlyall",
+      "https://github.com/jordanlyall"
+    ],
+    "knowsAbout": ["generative art", "AI agents", "Ethereum", "product design", "sovereign systems"],
+    "jobTitle": "CPO",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Art Blocks"
+    }
+  })} />
+</head>
+<body>
+  <div class="site-layout">
+    <aside class="sidebar">
+      <div class="sidebar-identity">
+        <a href="/" class="sidebar-name">Jordan Lyall</a>
+        <p class="sidebar-role">CPO at Art Blocks</p>
+      </div>
+
+      <nav class="sidebar-nav">
+        {navItems.map(({ href, label }) => (
+          <a href={href} aria-current={currentPath === href ? 'page' : undefined}>
+            {label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="/writing/rss.xml">RSS</a>
+        <a href="/.well-known/agent.json">Agent</a>
+        <a href="/.well-known/profile.json">Profile</a>
+      </div>
+    </aside>
+
+    <header class="mobile-header">
+      <div class="mobile-header-inner">
+        <a href="/" class="mobile-name">Jordan Lyall</a>
+        <nav class="mobile-nav">
+          {navItems.filter(n => n.label !== 'Home').map(({ href, label }) => (
+            <a href={href}>{label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <slot />
+
+      <footer class="content-footer">
+        <div class="h-card" style="display:none;">
+          <a class="u-url p-name" href="https://jordanlyall.com/">Jordan Lyall</a>
+          <p class="p-note">Building and thinking about generative systems, AI agents, and sovereign infrastructure.</p>
+        </div>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
