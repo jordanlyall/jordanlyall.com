@@ -265,6 +265,10 @@ html {
 }
 
 @media (max-width: 768px) {
+  .site-layout {
+    flex-direction: column;
+  }
+
   .sidebar {
     display: none;
   }
