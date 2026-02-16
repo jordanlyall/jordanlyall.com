@@ -12,6 +12,73 @@ function generateId(): string {
   return `prop_${ts}_${rand}`;
 }
 
+async function notifySlack(proposal: Record<string, unknown>): Promise<void> {
+  const token = import.meta.env.SLACK_BOT_TOKEN;
+  if (!token) {
+    console.warn('[intake/proposal] SLACK_BOT_TOKEN not set, skipping notification');
+    return;
+  }
+
+  const blocks = [
+    {
+      type: 'header',
+      text: { type: 'plain_text', text: ':mailbox_with_mail: New Proposal', emoji: true },
+    },
+    {
+      type: 'section',
+      fields: [
+        { type: 'mrkdwn', text: `*From:*\n${proposal.who}` },
+        { type: 'mrkdwn', text: `*Timing:*\n${proposal.timing}` },
+      ],
+    },
+    {
+      type: 'section',
+      text: { type: 'mrkdwn', text: `*Why:*\n${proposal.why}` },
+    },
+    {
+      type: 'section',
+      text: { type: 'mrkdwn', text: `*What:*\n${proposal.what}` },
+    },
+    ...(proposal.email || proposal.links ? [{
+      type: 'section',
+      fields: [
+        ...(proposal.email ? [{ type: 'mrkdwn' as const, text: `*Email:*\n${proposal.email}` }] : []),
+        ...(proposal.links ? [{ type: 'mrkdwn' as const, text: `*Links:*\n${(proposal.links as string[]).join('\n')}` }] : []),
+      ],
+    }] : []),
+    {
+      type: 'context',
+      elements: [
+        { type: 'mrkdwn', text: `ID: \`${proposal.id}\` | ${proposal.received}` },
+      ],
+    },
+  ];
+
+  try {
+    const res = await fetch('https://slack.com/api/chat.postMessage', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        channel: 'crew-main',
+        blocks,
+        text: `New proposal from ${proposal.who}: ${proposal.what}`,
+        username: 'jordanlyall.com',
+        icon_emoji: ':globe_with_meridians:',
+        unfurl_links: false,
+      }),
+    });
+    const data = await res.json() as { ok: boolean; error?: string };
+    if (!data.ok) {
+      console.error('[intake/proposal] Slack error:', data.error);
+    }
+  } catch (err) {
+    console.error('[intake/proposal] Slack notification failed:', err);
+  }
+}
+
 export const POST: APIRoute = async ({ request }) => {
   const contentType = request.headers.get('content-type') || '';
   if (!contentType.includes('application/json')) {
@@ -89,6 +156,9 @@ export const POST: APIRoute = async ({ request }) => {
 
   // Log for now -- replace with storage later (KV, email forward, etc.)
   console.log('[intake/proposal]', JSON.stringify(proposal));
+
+  // Notify Slack (fire-and-forget, non-blocking)
+  notifySlack(proposal);
 
   return new Response(JSON.stringify({ id, status: 'received' }), {
     status: 200,
