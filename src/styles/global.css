@@ -696,6 +696,21 @@ img {
   border-top: 1px solid var(--color-border);
 }
 
+.mobile-footer-links {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.mobile-footer-links a {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.mobile-footer-links a:hover {
+  color: var(--color-text);
+}
+
 .mobile-footer-meta {
   display: flex;
   gap: var(--space-4);
