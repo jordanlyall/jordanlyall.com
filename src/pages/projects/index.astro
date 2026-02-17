@@ -1,0 +1,129 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const topicLabels: Record<string, string> = {
+  'generative-art': 'Generative Art',
+  'ai-agents': 'AI Agents',
+  'sovereign-systems': 'Sovereign Systems',
+};
+
+const statusLabels: Record<string, string> = {
+  active: 'Active',
+  shipped: 'Shipped',
+  archived: 'Archived',
+};
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.year - a.data.year);
+---
+
+<Base title="Projects" description="Side projects, tools, and open-source repos.">
+  <div class="page-header">
+    <h1>Projects</h1>
+    <p>Things I'm building or have built.</p>
+  </div>
+
+  {projects.length > 0 ? (
+    <div class="section">
+      <ul class="card-list">
+        {projects.map((project) => (
+          <li class="card-list-item">
+            <div class="project-title-row">
+              {project.data.url ? (
+                <a href={project.data.url} target="_blank" rel="noopener noreferrer">
+                  {project.data.title}
+                </a>
+              ) : (
+                <span class="project-title">{project.data.title}</span>
+              )}
+              {project.data.repo && (
+                <a href={project.data.repo} class="project-repo" target="_blank" rel="noopener noreferrer" aria-label="GitHub repo">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+              )}
+            </div>
+            <div class="card-meta">
+              <span>{project.data.year}</span>
+              <span class={`status status-${project.data.status}`}>{statusLabels[project.data.status]}</span>
+              <a href={`/topics/${project.data.topic}/`} class="tag">{topicLabels[project.data.topic] || project.data.topic}</a>
+            </div>
+            <p class="card-summary">{project.data.summary}</p>
+            {project.data.stack.length > 0 && (
+              <div class="project-stack">
+                {project.data.stack.map((tech) => (
+                  <span class="stack-tag">{tech}</span>
+                ))}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  ) : (
+    <div class="empty-state">
+      <p>No projects yet. Check back soon.</p>
+    </div>
+  )}
+</Base>
+
+<style>
+  .project-title-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .project-title {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--color-text);
+  }
+
+  .project-repo {
+    color: var(--color-text-tertiary);
+    text-decoration: none;
+    display: flex;
+    transition: color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .project-repo:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .status {
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    font-weight: 500;
+  }
+
+  .status-active {
+    color: #16a34a;
+  }
+
+  .status-shipped {
+    color: var(--color-text-secondary);
+  }
+
+  .status-archived {
+    color: var(--color-text-tertiary);
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+  }
+
+  .stack-tag {
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    color: var(--color-text-tertiary);
+    background: var(--color-bg-secondary);
+    padding: 0.15em 0.5em;
+    border-radius: var(--radius-sm);
+  }
+</style>

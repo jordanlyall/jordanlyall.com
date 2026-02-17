@@ -41,4 +41,19 @@ const essays = defineCollection({
   }),
 });
 
-export const collections = { notes, essays };
+const projects = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/projects' }),
+  schema: z.object({
+    title: z.string(),
+    summary: z.string().describe('One-line description of what it does'),
+    url: z.string().url().optional(),
+    repo: z.string().url().optional(),
+    stack: z.array(z.string()).default([]),
+    topic: z.enum(['generative-art', 'ai-agents', 'sovereign-systems']),
+    status: z.enum(['active', 'shipped', 'archived']).default('active'),
+    year: z.number(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { notes, essays, projects };
