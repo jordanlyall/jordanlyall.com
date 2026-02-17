@@ -12,9 +12,8 @@ const latest = [...notes, ...essays]
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
   .slice(0, 5);
 
-const projects = (await getCollection('projects', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.year - a.data.year)
-  .slice(0, 3);
+const projects = (await getCollection('projects', ({ data }) => !data.draft && data.featured))
+  .sort((a, b) => b.data.year - a.data.year);
 
 const topicLabels: Record<string, string> = {
   'generative-art': 'Generative Art & Digital Culture',

@@ -52,6 +52,7 @@ const projects = defineCollection({
     topic: z.enum(['generative-art', 'ai-agents', 'sovereign-systems']),
     status: z.enum(['active', 'shipped', 'archived']).default('active'),
     year: z.number(),
+    featured: z.boolean().default(false),
     draft: z.boolean().default(false),
   }),
 });
