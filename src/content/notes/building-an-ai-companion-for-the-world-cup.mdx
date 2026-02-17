@@ -23,13 +23,13 @@ The interesting decision was shipping all the data inside the npm package instea
 
 World Cup data is mostly static. The schedule doesn't change. Teams don't change (much). City guides and visa requirements are stable. The only moving pieces are the 6 remaining playoff spots (March 26 & 31) and injury updates. For those, I push npm updates.
 
-This pattern -- curated static data compiled at build time -- is underexplored in the MCP ecosystem. Most servers are API wrappers. But for bounded, high-quality datasets, bundling is simpler and more reliable.
+This pattern -- curated static data compiled at build time -- nobody's really doing this with MCP. Most servers are API wrappers. But for bounded, high-quality datasets, bundling is simpler and more reliable.
 
 ## The briefing tool
 
 My favorite part. Say "brief me on the World Cup" with zero parameters. The server detects the current tournament phase and surfaces what matters today.
 
-Right now: 120 days out, 6 playoff spots pending, here are the groups to watch. During the tournament it'll shift to today's matches, yesterday's results, standings implications. The AI doesn't need to know what to ask. It just calls `what_to_know_now` and gets a temporally aware response.
+Right now: 120 days out, 6 playoff spots pending, here are the groups to watch. During the tournament it'll shift to today's matches, yesterday's results, standings implications. The AI doesn't need to know what to ask. It just calls `what_to_know_now` and gets a response that knows what day it is.
 
 This is what MCP tools should feel like. Not "here's an endpoint, figure out the parameters." More like "tell me what I need to know" and the tool does the thinking.
 
@@ -41,12 +41,12 @@ Not everyone runs MCP clients. So the same data powers three other surfaces:
 - A **Telegram bot** with slash commands -- `/team brazil`, `/city miami`, `/history argentina france`
 - A **REST API** on Vercel for anyone who wants to build on top
 
-Same bundled data underneath all of them. The MCP server, the GPT, the bot, and the API are all thin layers over the same compiled dataset.
+Same bundled data underneath all of them. The MCP server, the GPT, the bot, and the API are all just different wrappers around the same data.
 
 ## What I'm watching
 
 The playoffs in March will be the first real content update cycle. Six teams qualify, I update the data, push to npm, and every installation gets current automatically on next install.
 
-After that, trip planning. 16 cities across 3 countries is a genuine logistics problem, and AI is actually pretty good at multi-constraint optimization when you give it structured data to work with.
+After that, trip planning. 16 cities across 3 countries is a genuine logistics problem, and AI is actually pretty good at figuring out logistics when you give it structured data to work with.
 
 [Source code on GitHub](https://github.com/jordanlyall/wc26-mcp). [Try it live](https://wc26.ai/try).
