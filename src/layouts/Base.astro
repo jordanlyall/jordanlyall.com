@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
   title: string;
@@ -55,6 +56,8 @@ const currentPath = Astro.url.pathname;
   <link rel="alternate" type="application/rss+xml" title="All Writing" href="/writing/rss.xml" />
   <link rel="alternate" type="application/rss+xml" title="Notes" href="/notes/rss.xml" />
   <link rel="alternate" type="application/rss+xml" title="Essays" href="/essays/rss.xml" />
+
+  <Analytics />
 
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
