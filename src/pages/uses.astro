@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Uses" description="Hardware, software, and tools I use daily.">
+  <div class="page-header">
+    <h1>Uses</h1>
+    <p>What I use to build things.</p>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Hardware</p>
+    <ul class="uses-list">
+      <li><strong>MacBook Pro</strong> -- daily driver for development and design</li>
+      <li><strong>Mac Mini M2</strong> -- always-on server running 20 autonomous agents via Crew</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Development</p>
+    <ul class="uses-list">
+      <li><strong>Claude Code</strong> -- primary development tool. Most of my side projects are built with Claude as a co-pilot</li>
+      <li><strong>VS Code</strong> -- when I need to read code more than write it</li>
+      <li><strong>GitHub</strong> -- all repos</li>
+      <li><strong>Vercel</strong> -- hosting and serverless functions for everything</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Stack</p>
+    <ul class="uses-list">
+      <li><strong>TypeScript</strong> -- for everything</li>
+      <li><strong>Astro</strong> -- this site</li>
+      <li><strong>Next.js</strong> -- onview.art and other React projects</li>
+      <li><strong>MCP SDK</strong> -- wc26.ai and agent tooling</li>
+      <li><strong>SwiftUI</strong> -- upcoming iOS work</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Productivity</p>
+    <ul class="uses-list">
+      <li><strong>Obsidian</strong> -- vault for everything. Notes, projects, daily logs, meeting prep, agent context</li>
+      <li><strong>Superhuman</strong> -- email</li>
+      <li><strong>Linear</strong> -- project management at Art Blocks</li>
+      <li><strong>Slack</strong> -- team communication and agent coordination (Crew posts to Slack)</li>
+      <li><strong>Figma</strong> -- design collaboration</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <p class="section-title">AI &amp; Agents</p>
+    <ul class="uses-list">
+      <li><strong>Claude</strong> -- primary LLM for everything from coding to coaching</li>
+      <li><strong>OpenRouter</strong> -- multi-model routing for Crew agents</li>
+      <li><strong>OpenClaw</strong> -- agent gateway running on the Mac Mini</li>
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .uses-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .uses-list li {
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .uses-list li:last-child {
+    border-bottom: none;
+  }
+
+  .uses-list strong {
+    color: var(--color-text);
+  }
+
+  .uses-list li {
+    color: var(--color-text-secondary);
+  }
+</style>

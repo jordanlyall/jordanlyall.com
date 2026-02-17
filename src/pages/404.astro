@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Not found" description="This page doesn't exist.">
+  <div class="not-found">
+    <h1>404</h1>
+    <p>This page doesn't exist. Here's where you probably meant to go:</p>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/work/">Work</a></li>
+      <li><a href="/writing/">Writing</a></li>
+      <li><a href="/projects/">Projects</a></li>
+      <li><a href="/now/">Now</a></li>
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .not-found {
+    padding: var(--space-10) 0;
+  }
+
+  .not-found h1 {
+    font-size: 3rem;
+    font-family: var(--font-mono);
+    color: var(--color-text-tertiary);
+    margin-bottom: var(--space-4);
+  }
+
+  .not-found p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-6);
+  }
+
+  .not-found ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .not-found li {
+    margin-bottom: var(--space-2);
+  }
+
+  .not-found a {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+  }
+
+  .not-found a:hover {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-decoration-color: var(--color-border);
+  }
+</style>

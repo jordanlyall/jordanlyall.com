@@ -4,7 +4,7 @@
   "capabilities": [
     {
       "id": "read.public",
-      "description": "Read public writing, topic hubs, and project pages.",
+      "description": "Read public writing, topic hubs, project pages, and professional background.",
       "auth": "none"
     },
     {
@@ -24,5 +24,16 @@
     "profile": "https://jordanlyall.com/.well-known/profile.json",
     "now": "https://jordanlyall.com/.well-known/now.json",
     "intake": "https://jordanlyall.com/.well-known/intake.json"
+  },
+  "sitemap": {
+    "work": "https://jordanlyall.com/work/",
+    "writing": "https://jordanlyall.com/writing/",
+    "projects": "https://jordanlyall.com/projects/",
+    "now": "https://jordanlyall.com/now/",
+    "topics": [
+      "https://jordanlyall.com/topics/generative-art/",
+      "https://jordanlyall.com/topics/ai-agents/",
+      "https://jordanlyall.com/topics/sovereign-systems/"
+    ]
   }
 }

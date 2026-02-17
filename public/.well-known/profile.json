@@ -1,12 +1,20 @@
 {
   "version": "0.1",
   "name": "Jordan Lyall",
+  "role": "CPO at Art Blocks",
   "canonical_site": "https://jordanlyall.com",
   "handles": [
     { "service": "x", "handle": "@jordanlyall", "url": "https://x.com/jordanlyall" },
-    { "service": "github", "handle": "@jordanlyall", "url": "https://github.com/jordanlyall" }
+    { "service": "github", "handle": "@jordanlyall", "url": "https://github.com/jordanlyall" },
+    { "service": "linkedin", "handle": "jordanlyall", "url": "https://www.linkedin.com/in/jordanlyall/" }
   ],
   "topics": ["generative-art", "ai-agents", "sovereign-systems"],
+  "pages": {
+    "work": "https://jordanlyall.com/work/",
+    "writing": "https://jordanlyall.com/writing/",
+    "projects": "https://jordanlyall.com/projects/",
+    "now": "https://jordanlyall.com/now/"
+  },
   "preferences": {
     "communication": ["structured-form", "x-dm"],
     "format": ["short context first", "links to references", "clear next steps"]
