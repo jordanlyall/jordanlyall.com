@@ -1,0 +1,38 @@
+---
+title: "Most Opus Tasks Aren't Opus Tasks"
+summary: "Opus is the safe default when you're building fast. But a three-line tier table in my system prompt taught the model to flag when it's overkill."
+publishDate: 2026-02-17
+topic: ai-agents
+related:
+  - /topics/ai-agents/
+draft: false
+syndicatedOn:
+  - platform: X
+    url: https://x.com/JordanLyall/status/2023925920135004411
+---
+
+Anthropic just dropped Sonnet 4.6. It's fast and it's good. But the real question isn't which model to use -- it's when you're reaching for the expensive one out of habit.
+
+When you're deep in a build, Opus feels like the safe default. It handles everything you throw at it. But "handles everything" isn't the same as "needed for everything." I was using Opus for tasks that Sonnet would've nailed -- meeting prep, code review, project planning -- because I never set up guardrails to tell me otherwise.
+
+## The fix
+
+I added a tier table directly to my `CLAUDE.md` system prompt:
+
+```
+| Tier      | Model  | Use For                                          |
+|-----------|--------|--------------------------------------------------|
+| Haiku     | haiku  | Lookups, grep, file reads, status checks          |
+| Sonnet    | sonnet | Daily workflows, planning, reviews, writing        |
+| Opus      | opus   | Complex architecture, multi-domain synthesis        |
+```
+
+Then one behavioral instruction: "Actively flag when I'm using the wrong tier for a task."
+
+That's it. The model now nudges me when something doesn't warrant Opus, or when a task genuinely needs the upgrade from Sonnet.
+
+## What surprised me
+
+~95% of my daily work runs fine on Sonnet. The tasks that feel like they need Opus don't. Opus earns its cost for maybe 5% of the work: multi-file architecture decisions, board-of-advisors deliberations, new system design.
+
+The model doesn't know what it costs. You have to tell it. And once you do, it's surprisingly good at self-selecting.
