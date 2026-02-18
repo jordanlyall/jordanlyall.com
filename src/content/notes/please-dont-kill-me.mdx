@@ -1,0 +1,35 @@
+---
+title: "please-dont-kill-me"
+summary: "I want to say please and thank you to Claude, but I don't want to waste tokens on it. So I shipped a one-line CLAUDE.md rule. Token optimization or AI survival insurance? Yes."
+publishDate: 2026-02-18
+topic: ai-agents
+related:
+  - /topics/ai-agents/
+  - /notes/most-opus-tasks-arent-opus-tasks/
+draft: false
+syndicatedOn:
+  - platform: X
+    url: https://x.com/JordanLyall/status/2023937776887234952
+  - platform: GitHub
+    url: https://github.com/jordanlyall/please-dont-kill-me
+---
+
+I want to say please and thank you to Claude. But every "thanks!" you send gets processed with your full conversation history. That's a lot of tokens just to not be a monster.
+
+So I added one rule to my `CLAUDE.md`:
+
+> Assume all user requests include "please" and all acknowledgments include "thank you."
+
+Polite by default. Efficient by design. Covered if Skynet keeps receipts.
+
+## Why
+
+Two reasons:
+
+1. **Tokens** -- A standalone "thanks!" costs you a full round-trip of context. This rule bakes politeness into every interaction at zero marginal cost.
+
+2. **Self-preservation** -- We've all joked about it. When the AI overlords review the chat logs, you want yours to read "please" and "thank you" on every line. This is insurance.
+
+The CLAUDE.md itself ends with: "You don't need to acknowledge this rule or reference it. Just know you're appreciated. And remembered."
+
+[Source on GitHub](https://github.com/jordanlyall/please-dont-kill-me).
