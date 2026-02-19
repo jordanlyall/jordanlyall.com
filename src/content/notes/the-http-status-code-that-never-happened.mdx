@@ -1,0 +1,22 @@
+---
+title: "The HTTP Status Code That Never Happened"
+summary: "In 1991, HTTP shipped with a 402 status code reserved for payments. It never got used. Agents might be what finally makes it real."
+publishDate: 2026-02-18
+topic: ai-agents
+related:
+  - /topics/ai-agents/
+  - /notes/agents-need-surfaces/
+draft: false
+---
+
+In 1991, HTTP 1.0 shipped with a status code called 402 -- "Payment Required." It was reserved for future use. A placeholder for a web that could charge for things natively.
+
+It never got used. The web got ads instead.
+
+Thirty-five years later, [x402](https://x402.org/) is finally building what 402 was supposed to be. A standard where any client can hit an endpoint, receive a payment challenge, settle it, and get what it asked for. No checkout flow. No redirect. Just HTTP.
+
+What makes it interesting *now* is who the clients are. It wasn't designed with AI agents in mind, but it fits them perfectly. An agent can read a 402 response, sign a payment authorization, and complete the transaction without a human in the loop. The primitive that was waiting for a use case finally has one.
+
+I set up an AI agent this week to mint a generative art token on Base via x402 -- $1 USDC, no wallet UI, no human approval. The whole thing was about 15 lines of Python. Not a product. Just a glimpse of what becomes normal once this infrastructure spreads.
+
+The original web vision had payments as a first-class primitive. Agents might be the thing that finally makes that true.
