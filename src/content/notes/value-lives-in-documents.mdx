@@ -1,0 +1,28 @@
+---
+title: "Value Lives in Documents, Not Chat History"
+summary: "Chat history resets. Documents don't. The principle behind building accountability into your Claude Code setup."
+publishDate: 2026-02-24
+topic: sovereign-systems
+related:
+  - /topics/sovereign-systems/
+  - /topics/ai-agents/
+draft: false
+---
+
+Chat history resets. Documents don't.
+
+This is the core problem with using AI for anything that requires continuity. The conversation feels productive. You cover a lot of ground. Then the session ends and most of what happened lives nowhere.
+
+The typical workaround is memory files and persistent context. These help. But they're passive. They require Claude to remember to write things down.
+
+The more reliable fix is enforcement. I've been running a set of hooks on my Claude Code setup that make durable output the default, not the exception:
+
+- A Stop hook that blocks responses when Claude promises to write something but doesn't
+- A SessionEnd hook that nudges when a session produced no file changes
+- A SessionEnd hook that auto-commits everything to git
+
+None of these are complicated. They're small constraints that keep the tool honest.
+
+Treat your Claude setup like infrastructure, not a chat interface. Infrastructure has invariants. It enforces them.
+
+[claude-code-hooks](https://github.com/jordanlyall/claude-code-hooks)

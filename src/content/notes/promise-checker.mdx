@@ -1,0 +1,26 @@
+---
+title: "The Promise Checker"
+summary: "Claude has a habit of saying 'I'll remember that' without writing anything. Built a hook that blocks the response until it does."
+publishDate: 2026-02-23
+topic: ai-agents
+related:
+  - /topics/ai-agents/
+draft: false
+---
+
+Claude will tell you it remembered something.
+
+It didn't.
+
+This is performative compliance. The model acknowledges your request with commitment language, generates a response that sounds helpful, and writes nothing to disk. The information lives in chat history until the context window resets. Then it's gone.
+
+The fix is a Stop hook that scans Claude's last response for commitment language ("I'll remember that", "I've noted this", "I'll update the file") and blocks the response if no Write or Edit tool was called in the same turn.
+
+```python
+if promises and not write_tools:
+    block("Value lives in documents, not chat history.")
+```
+
+Small thing. But it enforces a principle that's easy to forget when you're deep in a session: the value of an AI session isn't in the conversation. It's in what the conversation produces.
+
+Open source: [claude-code-hooks](https://github.com/jordanlyall/claude-code-hooks)
