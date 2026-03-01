@@ -16,18 +16,24 @@ Serves two audiences: humans (clean reading experience) and AI agents (structure
 ## Content Model
 - Notes: fast (100-400 words), in src/content/notes/
 - Essays: durable (800-2500 words), in src/content/essays/
+- Projects: side projects directory, in src/content/projects/ (title, summary, url, repo, stack, topic, status, featured, year)
 - Topics: 3 hubs defined in src/data/topics.ts (generative-art, ai-agents, sovereign-systems)
 - Every post MUST have: title, summary, publishDate, topic, related links
+- Projects with `featured: true` appear on homepage
 
 ## Routes
-- / (homepage)
+- / (homepage -- latest writing + featured projects)
+- /work/ (professional background)
 - /writing/ (combined index)
 - /notes/ and /notes/[slug]/
 - /essays/ and /essays/[slug]/
 - /topics/[topic]/
+- /projects/ (side projects directory)
+- /uses/ (tools and stack)
 - /now/
 - /work-with-me/
 - /intake/proposal/ (form + API POST)
+- /404 (custom not-found page)
 
 ## Machine Layer
 - /.well-known/agent.json -- agent capabilities + discovery links
@@ -81,13 +87,20 @@ Serves two audiences: humans (clean reading experience) and AI agents (structure
 - Domain DNS at GoDaddy (A record -> 76.76.21.21)
 
 ## Upcoming Work
+- Content seeding -- 8-10 more notes for density (target: 15 total)
+- Publishing cadence -- establish rhythm (target: 2-4 notes/week)
 - Groundskeeper site audit skill (plan at ~/.claude/plans/gentle-munching-stallman.md)
-- Content seeding -- 8-12 more notes for density (target: 15 total)
-- Design polish (typography, spacing, dark mode refinement)
+- Design polish (dark mode refinement)
 - Full roadmap in Obsidian: 1-Projects/Current/sovereign-node-jordanlyall.md
 
 ## Recently Shipped
+- /projects/ directory with 5 projects, featured flag for homepage (Feb 17)
+- /work/ page with full professional background (Feb 17)
+- /uses/ page with tools and stack (Feb 17)
+- Custom 404 page (Feb 17)
+- Updated /now/ page with current state (Feb 17)
+- Homepage projects section (Feb 17)
+- .well-known manifests updated with new routes (Feb 17)
 - Dynamic OG images via @vercel/og at /api/og (Feb 16)
 - Slack notifications on intake proposals to #crew-main (Feb 16)
 - Mobile layout fix + mobile footer (Feb 16)
-- Vercel env note: use `process.env` for secrets in serverless, NOT `import.meta.env`
