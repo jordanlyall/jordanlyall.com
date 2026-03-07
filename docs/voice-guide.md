@@ -91,7 +91,7 @@ All examples below are from Jordan's actual writing.
 
 ### Punctuation
 
-- `--` (double dash with spaces) for asides on the site. Jordan naturally uses single hyphens in social, but `--` is the house style.
+- No em dashes or double dashes (`--` or `—`). Use colons, periods, or restructure the sentence instead.
 - **Bold** for key phrases and structural emphasis. Not decoration.
 - Exclamation marks are rare and earned. "Let's build!" works. "This is amazing!" doesn't.
 - Arrow bullets (→) for technical point lists.
