@@ -1,0 +1,29 @@
+---
+title: "When Everyone Can Ship -- Part 1"
+summary: "AI lets the CEO prototype on a Sunday and the CPO ship a flow by Tuesday. The question nobody has answered yet: what does the team do with it?"
+publishDate: 2026-03-07
+topic: ai-agents
+related:
+  - /topics/ai-agents/
+  - /notes/most-opus-tasks-arent-opus-tasks/
+  - /notes/sharp-tools-beat-swiss-army-knives-mcp-design-patterns/
+draft: false
+---
+
+At Art Blocks, our CEO builds prototypes. I do too. So does the PM, the designer, the engineer. Everyone with AI tools can now put together a working thing in an afternoon.
+
+That's exciting. It's also creating a question nobody has a clean answer to yet: when the CEO ships something on a Sunday, what does the team do with it?
+
+Adopt it? Rebuild it from scratch? Fork it and polish it? The handoff model most product orgs grew up with -- PM writes spec, design mocks it, eng builds it, QA tests it -- assumed only one function could build at a time. That's no longer true. And the new model isn't written yet.
+
+The biggest risk we're watching: velocity illusions. Vibe coding makes it look like everyone's executing fast. The hidden accumulation is architectural drift and test debt. Speed metrics lie. The CPO job now includes naming that trade-off explicitly before it becomes a crisis.
+
+A few other things we're seeing:
+
+→ Specs need architectural constraints, not just features. "Add a share button" breaks things. "Add a share button that can't touch the auth layer and must work in the existing design system" doesn't.
+→ Design systems matter more, not less. AI generates off-spec UI constantly. A strong component library is the constraint that keeps output coherent.
+→ Someone still has to own the map. When everyone can build, nobody automatically tracks how the pieces connect. That job gets more important, not less.
+
+We're working this out in real-time. I'll keep writing about it as we do.
+
+What's your team doing with exec prototypes?
