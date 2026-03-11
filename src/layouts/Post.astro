@@ -12,11 +12,12 @@ interface Props {
   type: 'note' | 'essay';
   syndicatedOn?: { platform: string; url: string }[];
   references?: { title: string; url: string }[];
+  ogImage?: string;
 }
 
 const {
   title, summary, publishDate, updatedDate, topic, secondaryTopic,
-  related = [], type, syndicatedOn = [], references = [],
+  related = [], type, syndicatedOn = [], references = [], ogImage,
 } = Astro.props;
 
 const topicLabels: Record<string, string> = {
@@ -30,7 +31,7 @@ const formatDate = (date: Date) => date.toLocaleDateString('en-US', {
 });
 ---
 
-<Base title={title} description={summary} ogImage={new URL(`/api/og?title=${encodeURIComponent(title)}&subtitle=${encodeURIComponent(summary)}`, Astro.site).toString()}>
+<Base title={title} description={summary} ogImage={ogImage ? new URL(ogImage, Astro.site).toString() : new URL(`/api/og?title=${encodeURIComponent(title)}&subtitle=${encodeURIComponent(summary)}`, Astro.site).toString()}>
   <article class="h-entry">
     <header class="post-header">
       <div class="post-meta-line">
