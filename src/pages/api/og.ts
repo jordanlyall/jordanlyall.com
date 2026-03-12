@@ -111,8 +111,11 @@ export const GET: APIRoute = async ({ request }) => {
     },
   };
 
-  return new ImageResponse(html, {
+  const response = new ImageResponse(html, {
     width: 1200,
     height: 630,
   });
+
+  response.headers.set('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400');
+  return response;
 };
