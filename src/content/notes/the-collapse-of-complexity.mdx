@@ -1,0 +1,182 @@
+---
+title: "The Collapse of Complexity"
+summary: "A short history of how three completely different webs became the same one."
+publishDate: 2026-03-24
+topic: building
+related:
+  - /notes/when-everyone-can-ship/
+  - /notes/taste-is-the-last-defensible-moat/
+draft: false
+---
+
+## tl;dr
+
+In 1998 there were three completely different webs. The free web (GeoCities, 15MB, animated GIFs). The indie web (your own domain, shared hosting, FTP). And the startup web (dedicated servers, a sysadmin, T1 lines, and real money). Each had wildly different costs, tools, and ceilings. By 2016, all three collapsed into the same workflow: `git push`. By 2026, all three are described to an AI. The barrier between "I have an idea" and "it's live, with paying users" collapsed. The convergence is the story.
+
+---
+
+## 1998: Three webs
+
+**The free web** was GeoCities.
+
+You picked a neighborhood. SiliconValley for tech, Area51 for sci-fi, Heartland for families. You got a URL like `geocities.com/SiliconValley/1234` and 15MB of space. You wrote HTML in Notepad, uploaded through their web form, and decorated with hit counters, guestbooks, and "Under Construction" GIFs.
+
+Angelfire gave you kilobytes. Tripod gave you 2MB. The ceiling was static pages. Cost: $0.
+
+**The indie web** was your own domain on shared hosting.
+
+You registered through Network Solutions (the only option) for $70/two years. You paid $30/month for a host with CGI support. You opened WS_FTP and dragged your files to `public_html/`.
+
+Dynamic meant a Perl script in `/cgi-bin/` that printed HTML to stdout. Maybe PHP 3 if your host was progressive. Tools cost real money: Dreamweaver at $495, Photoshop at $649 (or pirated). All-in, about $1,200/year.
+
+The ceiling was a database-driven site if you could write Perl. Every form handler from scratch. Every cookie parsed manually.
+
+**The startup web** was a different planet.
+
+You leased rack space at a colo facility. Dedicated servers: $800-2,000/month before bandwidth. A T1 line: another $1,000-1,500/month. You had a sysadmin on pager duty who understood Apache tuning, Perl module dependencies, and weekly tape backups.
+
+When traffic spiked, you didn't scale. You went down. The "Slashdot Effect" was a real infrastructure emergency. A link from the front page could melt your server in minutes. Your monitoring was a cron job that pinged the box and emailed you when it stopped responding.
+
+Matt Drudge ran the Drudge Report from a one-bedroom Hollywood apartment. Craig Newmark ran Craigslist solo for four years. Rob Malda built Slashdot in Perl on a used DEC Alpha Multia. Extraordinary people operating at the absolute edge of what the infrastructure allowed.
+
+The communities that connected all three: WebMonkey (tutorials written by actual developers), A List Apart (Jeffrey Zeldman's web standards crusade), and View Source. Right-click, learn how anything was built. The web's original open textbook.
+
+---
+
+## 2003: The LAMP convergence
+
+The dot-com bust destroyed companies but liberated the web. Startups dumped servers at auction. Infrastructure flooded the market. The culture shifted from "get funded, spend lavishly" to "build it yourself, cheaply, with open source."
+
+**The free web** upgraded. Blogger (acquired by Google, February 2003) and WordPress 1.0 (May 2003) meant anyone could publish. Not a static page in a GeoCities neighborhood. A real blog with comments, archives, and RSS.
+
+The free web stopped being a toy.
+
+**The indie web** got radically cheaper. The stack crystallized around LAMP: Linux, Apache, MySQL, PHP. All free. Shared hosting dropped to $5-10/month. Domains fell to $8/year after the Network Solutions monopoly broke.
+
+The whole workflow was: write PHP in a text editor, FTP the file, refresh the browser, pray.
+
+A developer named Nick Janetakis built a PHP CRM this way. It ran for 11 years. Generated $700,000 in revenue. On hosting that cost $7/month. His deploy workflow: a keyboard shortcut that uploaded the currently focused file.
+
+**The startup web** started looking like the indie web with more boxes. Same LAMP stack. Same cPanel dashboards. Just more servers. The expensive part wasn't the software anymore (all free). The expensive parts were the sysadmin who kept MySQL replication healthy, and payment processing. Merchant account approval took weeks. PayPal froze accounts on a whim. Every checkout form was a PCI compliance risk you tried not to think about.
+
+CSS Zen Garden launched that May. One HTML file. Designers worldwide submitted CSS files. The results killed the tables-vs-CSS debate not with logic but with visuals. "In 2003 nobody was using CSS beyond basic fonts and colours." After Zen Garden, the argument was over.
+
+**First convergence.** WordPress made the free web and the indie web the same thing. A blog on WordPress.com and a blog on your own $7/month hosting had nearly identical capabilities.
+
+---
+
+## 2007: The deploy disappears
+
+`git push heroku main`. No FTP. No SSH. No server configuration. Just... deployed.
+
+DHH had set the tone two years earlier. He built a blog in 15 minutes on stage. "Look at all the things I'm not doing." Rails gave you convention over configuration, migrations, scaffolding. jQuery (2006) made JavaScript tolerable. GitHub launched in 2008 with 4 people running Rails.
+
+**The free web** was now Tumblr, Blogger, WordPress.com. Full publishing platforms. Zero cost, zero complexity.
+
+**The indie web** got Heroku. `git push heroku main`. That's it. Your app is deployed. Free tier included. 20,000 apps running by early 2009. Salesforce bought it for $212 million.
+
+**The startup web** got AWS. S3 launched March 2006 (12,000 signups day one). EC2 launched that August. The colo facility, the racked servers, the pager-duty sysadmin: all replaced by a credit card and an API.
+
+But you still needed someone who understood load balancers, replication, caching, monitoring. "DevOps" didn't exist as a term yet. The problem it would name was the startup bottleneck.
+
+**Second convergence.** Heroku's free tier meant a hobby project and an early startup used the same deploy workflow. The difference was scale, not tooling.
+
+---
+
+## 2012: Seven lines of code
+
+Here's the thing: before Stripe, accepting payments on the web was genuinely terrifying. Merchant account approval (weeks). Payment gateway integration. PCI compliance documentation. SDKs that made you question your career choices.
+
+After Stripe (September 2011): seven lines of code. 2.9% + 30 cents. No setup fees. No monthly fees. Done.
+
+DigitalOcean (2012) dropped the VPS floor to $5/month. Sentry: free error tracking. Sendgrid: free transactional email. Twilio made SMS an API call. Every capability that used to require a team became an API with a generous free tier.
+
+A solo developer in 2013 could launch for $15-20/month. Marketplace with payments, social login, email, SMS, file uploads, background jobs, real-time features. All of it. The free web, the indie web, and the startup web stopped being useful categories. They all used the same APIs.
+
+**Third convergence.** A side project and a funded startup used the same stack, the same deploy, the same payment integration. The only real difference was traffic.
+
+---
+
+## 2016: The convergence tax
+
+By 2016, the three webs had merged into one.
+
+Good news.
+
+The bad news: the merged web was complicated in a completely new way.
+
+"How It Feels to Learn JavaScript in 2016" hit #1 on Hacker News twice because it was accurate. Webpack, Babel, Redux, styled-components, TypeScript, yarn. The ecosystem had collapsed complexity for deployment while exploding it for development.
+
+**The free web** was now Squarespace, Wix, Shopify. Drag-and-drop site builders that could produce something indistinguishable from a custom build. A Squarespace site in 2016 looked better than most agency work from 2008. Cost: $12/month.
+
+**The indie web** was drowning in choices. A production React app required Webpack config, state management (Redux? MobX? Context?), routing, CSS-in-JS or CSS Modules, testing infrastructure, and CI/CD. The hosting was free. The knowledge tax was enormous.
+
+Not a cost barrier. A cognitive one.
+
+**The startup web** had the same problem at scale, plus Kubernetes, microservices, and a DevOps team to manage it all. The three webs had converged on capability but diverged again on complexity.
+
+Two things happened underneath this noise that mattered more than the framework wars.
+
+Netlify (2014) and Vercel (2016) made deployment a git push with preview URLs on every PR. Hosting went to $0 for most apps. Supabase (January 2020) shipped a complete Postgres backend with auth, storage, and real-time subscriptions on a free tier. The "backend team" requirement evaporated for most applications.
+
+And Pieter Levels ran Nomad List and Remote OK on vanilla PHP, jQuery, and SQLite. No React. No microservices. No team. Not as a statement. Because it worked. $2-3 million/year solo. Proof that the convergence tax was optional if you refused to pay it.
+
+Next.js (October 2016) was the thing that made the tax manageable for everyone else. Zero-config server rendering. File-based routing. API routes alongside your frontend. One framework that handled the whole thing.
+
+**Fourth convergence.** The free web's drag-and-drop builders and the indie web's code-first frameworks produced nearly identical results. The gap between a Squarespace portfolio and a custom Next.js site narrowed to details only developers noticed.
+
+---
+
+## 2025: Describe it, ship it
+
+Andrej Karpathy coined "vibe coding" on February 2, 2025: "fully give in to the vibes, embrace exponentials, and forget that the code even exists." It named something millions of people were already doing.
+
+By this point the three-webs framing barely holds. The borders are too blurred to cleanly separate. But that's the point.
+
+A designer in Copenhagen opens Lovable, describes a SaaS dashboard in plain English, and has a working app with auth and Stripe by lunch. Eight million people are doing this. A developer in Lagos opens Cursor, describes a feature in a comment, and watches the AI write it, test it, and open a PR. GitHub Copilot has 4.7 million paid subscribers. A YC batch runs the same stack as both of them. Same models. Same hosting. Same deploy.
+
+Not perfectly. Not without supervision. But enough that the bottleneck moved.
+
+Danny Postma runs HeadshotPro solo. $3.6 million a year. No employees. No investors. His entire stack is the same one available to someone who started coding last month.
+
+The cost of a production app in 2026:
+
+- Hosting: $0 at hobby-to-first-revenue scale
+- Auth: $0
+- Database: $0
+- Payments: $0 until first transaction
+- CI/CD: $0
+- AI coding tool: $20/month
+
+The biggest expense isn't infrastructure. It's the tool that writes the code for you.
+
+Instagram had 13 employees when Facebook paid a billion dollars. WhatsApp had 32 engineers serving 450 million users. Those numbers were shocking in 2014. In 2026, a single person ships what those teams shipped. Solo-founded startups went from under 25% a decade ago to 35% in 2024 (Carta). Cursor hit $2 billion ARR by February 2026, doubling in three months.
+
+None of this means infrastructure complexity disappeared. Kubernetes clusters, ML inference pipelines, and real-time systems at scale are harder than ever. That's a different ceiling. The one that collapsed is the one between "I have an idea" and "it's live, with paying users."
+
+---
+
+## The pattern
+
+Each era eliminated something the previous generation considered essential:
+
+| Year | What Disappeared | What Killed It |
+|------|-----------------|----------------|
+| 1998 | Needing to own a server | Shared hosting with CGI |
+| 2003 | Software licensing costs | LAMP (all free) |
+| 2007 | Server provisioning | Heroku, AWS |
+| 2012 | Payment processing, ops | Stripe, $5 VPS |
+| 2016 | Hosting costs, backend teams | Serverless, Netlify/Vercel, Supabase |
+| 2025 | Writing code | AI agents |
+
+But the deeper pattern is the convergence. Three separate webs with three separate cost structures, three separate skill requirements, and three separate ceilings slowly merged into one. The free web absorbed the indie web's capabilities. The indie web absorbed the startup web's scale. And then AI dissolved the borders entirely.
+
+Each convergence produced the same moment. The old guard recognized it when someone with less expertise shipped something that previously required their specialized knowledge. Table-layout experts watched CSS designers take their work. Perl developers watched Rails developers outship them. Full-stack developers are watching non-programmers build working apps with Cursor and Claude.
+
+Same recognition every time. Same unsettling feeling. Same question: what just became unnecessary?
+
+In 1998, the answer was owning a server. In 2003, paying for software. In 2007, configuring deploys. In 2012, building payment infrastructure. In 2016, managing hosting. In 2025, writing the code yourself.
+
+Every previous layer collapsed once it became legible to software. Servers, code, payments, hosting, even the code itself. Next is distribution.
+
+Finding users, getting attention, convincing someone to try the thing you built. That's the last barrier between an idea and a business. It's also the hardest to automate because it requires taste: knowing who wants what you made, and how to reach them in a way that doesn't feel like noise. Distribution is still a human problem. For now.
