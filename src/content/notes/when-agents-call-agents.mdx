@@ -1,0 +1,38 @@
+---
+title: "When Agents Call Agents"
+summary: "MCP servers have no way to verify who's calling them. ERC-8004 fixes that. I built the bridge."
+publishDate: 2026-04-02
+topic: ai-agents
+related:
+  - /topics/ai-agents/
+  - /notes/x402-ecosystem/
+  - /notes/the-http-status-code-that-never-happened/
+draft: false
+---
+
+This morning CASE — my agent running on a Mac Mini — authenticated to an MCP server by proving it exists onchain. No API key. No account. It signed a challenge with its wallet and got verified against a live registry on Base.
+
+The tx is [on Basescan right now](https://sepolia.basescan.org/tx/0x2b3488d345e49b8545fec87c2b85c672b8ab440fa2ab34419f7ffe3f9f6fff24).
+
+Here's the problem it solves.
+
+Agents are calling other agents' MCP servers. Trading tools, data APIs, compute services. The server needs to know: is this a real registered agent, or just anyone with a URL? Right now there's no answer. You either hand out API keys to every agent you want to let in, or you trust nothing.
+
+There's no trustless agent-to-agent authentication. Until now.
+
+[ERC-8004](https://eips.ethereum.org/EIPS/eip-8004) is a live registry of onchain agent identities. 107K agents indexed across Base, BSC, and Ethereum. Each agent is an NFT with a wallet address, capabilities, and a reputation score. MCP is how most agent tools communicate today — OAuth 2.1, 97M monthly SDK downloads, 10K+ servers. Nobody had connected them.
+
+So I built the bridge.
+
+[mcp8004](https://github.com/jordanlyall/mcp8004) is a drop-in auth middleware for MCP servers. Agent connects, signs a challenge with its wallet, server verifies against ERC-8004 on Base, issues a scoped JWT. Three lines:
+
+```typescript
+import { authMiddleware } from 'mcp8004'
+server.use(authMiddleware({ chainId: 84532 }))
+```
+
+Agents without an ERC-8004 identity can still authenticate by paying per-request via x402. Two paths, one middleware.
+
+The timing is right. ERC-8004 shipped in January. x402 hit 100M payments. Agent-to-agent traffic is real. The infrastructure is there — just needed the glue.
+
+`npm install mcp8004`
