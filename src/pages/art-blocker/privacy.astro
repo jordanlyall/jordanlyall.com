@@ -1,0 +1,169 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const updated = '2026-08-21';
+---
+
+<Base
+  title="Art Blocker Privacy Policy"
+  description="What data the Art Blocker browser extension touches, and what it does not."
+>
+  <div class="page-header">
+    <h1>Art Blocker Privacy Policy</h1>
+    <p>Last updated {updated}. Applies to version 0.2.0 and later.</p>
+  </div>
+
+  <div class="section">
+    <p>
+      Art Blocker replaces advertising slots on web pages with generative artwork
+      from Art Blocks. This policy describes every piece of data the extension
+      touches.
+    </p>
+    <p>
+      <strong>Art Blocker is an independent side project. It is not made by,
+      affiliated with, or endorsed by Art Blocks Inc.</strong> Art Blocks is a
+      third party here, and its own privacy policy governs the requests your
+      browser makes to it.
+    </p>
+    <p>
+      There is no Art Blocker server. There is no backend, no analytics service,
+      and no log. Nothing you do in this extension is sent to me, because there is
+      nowhere to send it.
+    </p>
+  </div>
+
+  <div class="section">
+    <p class="section-title">What it stores</p>
+    <ul class="uses-list">
+      <li><strong>source</strong> -- whether art comes from the built-in pool or from a wallet. Default: the pool</li>
+      <li><strong>wallet</strong> -- an Ethereum address you optionally paste in. Default: empty</li>
+      <li><strong>collapseUnfillable</strong> -- whether to collapse ad slots that cannot be filled. Default: on</li>
+      <li><strong>enabled</strong> -- the global on/off switch. Default: on</li>
+      <li><strong>disabledSites</strong> -- hostnames you have individually switched off. Default: empty</li>
+    </ul>
+    <p>
+      These are stored with Chrome's <code>storage.sync</code>, which means Chrome
+      copies them to your Google account and to your other signed-in Chrome
+      profiles. That is Chrome's sync, not mine, and Google's privacy policy
+      governs it. If you would rather your wallet address and your list of
+      switched-off sites did not leave the device, turn off extension sync in
+      Chrome settings, or do not enter a wallet address.
+    </p>
+    <p>
+      Artwork metadata is cached separately in <code>storage.local</code>, which
+      does not sync. That cache holds artwork records only. It contains nothing
+      about you.
+    </p>
+  </div>
+
+  <div class="section">
+    <p class="section-title">What it reads</p>
+    <p>
+      The content script reads the structure of pages you visit in order to find
+      ad slots. That is Chrome's "website content" disclosure category, and it is
+      declared on the listing.
+    </p>
+    <p>
+      <strong>This happens entirely inside your browser and is never transmitted,
+      stored, or logged.</strong> The extension looks at the current page, decides
+      which elements are ad slots, replaces them, and forgets. It keeps no history
+      of pages you have visited.
+    </p>
+    <p>
+      It does not collect browsing history, location, financial information,
+      health information, personal communications, authentication information,
+      keystrokes, or form contents.
+    </p>
+  </div>
+
+  <div class="section">
+    <p class="section-title">What leaves your browser</p>
+    <p>When it replaces an ad slot, your browser makes requests to:</p>
+    <ul class="uses-list">
+      <li><strong>data.artblocks.io</strong> -- artwork metadata, and in wallet mode the token list for the address you entered</li>
+      <li><strong>media-proxy.artblocks.io</strong> -- artwork images</li>
+      <li><strong>generator.artblocks.io</strong> -- live generative artwork, in a sandboxed frame</li>
+      <li><strong>www.artblocks.io</strong> -- only if you click through to an artwork's page</li>
+    </ul>
+    <p>
+      These carry your IP address, as any web request does. <strong>They are sent
+      with <code>no-referrer</code></strong>, so Art Blocks is not told which page
+      you were on when the artwork loaded. That is deliberate, and it is enforced
+      on every element that loads: the image, the frame, and the links.
+    </p>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Wallet mode</p>
+    <p>
+      Wallet mode is <strong>off by default</strong>. It does nothing unless you
+      paste an Ethereum address into the options page. If you turn it on, your
+      address is sent to data.artblocks.io to look up which Art Blocks tokens it
+      holds, and it is stored in your synced settings as described above. It is
+      not sent anywhere else. The extension never connects to a wallet and never
+      asks you to sign anything.
+    </p>
+    <p>
+      <strong>A known limitation, stated plainly.</strong> In wallet mode the
+      artwork placed on a page carries the specific token IDs you own, in ordinary
+      page markup. A hostile website could read those and look them up against a
+      public blockchain index to learn which wallet is viewing the page. Blockchain
+      ownership is already public, so this is a linking risk rather than exposure
+      of anything private, but it is real, and it is why wallet mode is opt-in. If
+      you do not want a site to be able to link your browsing to your wallet, leave
+      it off.
+    </p>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Permissions</p>
+    <ul class="uses-list">
+      <li><strong>storage</strong> -- to save the five settings above</li>
+      <li><strong>data.artblocks.io</strong> -- to fetch artwork metadata</li>
+      <li><strong>Access to all websites</strong> -- ad slots exist on every site, so the extension has to be able to run on every site to replace them. It runs locally, transmits nothing about the page, and can be switched off globally or per-site from the toolbar</li>
+    </ul>
+    <p>
+      The ad-detection filter lists are compiled into the extension at build time.
+      It does not download filter lists, configuration, or code while running.
+    </p>
+  </div>
+
+  <div class="section">
+    <p class="section-title">What it does not do</p>
+    <ul class="uses-list">
+      <li>No analytics, telemetry, crash reporting, or usage measurement</li>
+      <li>No advertising, and no selling or transferring of data to anyone</li>
+      <li>No data brokers</li>
+      <li>No use of your data to train models</li>
+      <li>No remote code. Everything that runs is in the package Google reviewed</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Chrome Web Store Limited Use</p>
+    <p>
+      Art Blocker's use of information received from Google APIs adheres to the
+      <a href="https://developer.chrome.com/docs/webstore/program-policies/user-data-faq">Chrome Web Store User Data Policy</a>,
+      including the Limited Use requirements. Because the extension collects no
+      user data and operates no server, the handling, transfer, and secondary-use
+      restrictions are satisfied by there being nothing to handle, transfer, or
+      reuse.
+    </p>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Changes, removal, and contact</p>
+    <p>
+      If the extension's data practices change, this page is updated before the
+      change ships, and the update is surfaced inside the extension rather than
+      only posted here.
+    </p>
+    <p>
+      Uninstalling Art Blocker deletes its stored settings from the device. To also
+      remove the synced copy, clear synced extension data from your Google account.
+    </p>
+    <p>
+      Questions: <a href="mailto:jordan.lyall@gmail.com">jordan.lyall@gmail.com</a>
+    </p>
+  </div>
+</Base>
